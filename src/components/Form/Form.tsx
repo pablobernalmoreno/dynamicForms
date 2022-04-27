@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Form.css";
 
 interface FormProps {
@@ -16,6 +16,21 @@ interface Attribute {
 
 export const Form = ({ attributes }: FormProps) => {
   /**
+   * State manager for the input fields values
+   */
+  const [inputValues, setInputValues] = useState({});
+
+  /**
+   * Function to handle any changes in the input fields
+   */
+  const handleChange = ({ target: { name, value } }: any) => {
+    setInputValues({
+      ...inputValues,
+      [name]: value,
+    });
+  };
+
+  /**
    * @param attribute of type Attribute
    * @returns React element based on the attribute data type
    */
@@ -28,6 +43,7 @@ export const Form = ({ attributes }: FormProps) => {
             name={attribute.code}
             placeholder={attribute.code.toUpperCase()}
             type={"string"}
+            onChange={handleChange}
           />
         );
       case "email":
@@ -37,6 +53,7 @@ export const Form = ({ attributes }: FormProps) => {
             name={attribute.code}
             placeholder={attribute.code.toUpperCase()}
             type={"email"}
+            onChange={handleChange}
           />
         );
       case "date":
@@ -46,6 +63,7 @@ export const Form = ({ attributes }: FormProps) => {
             name={attribute.code}
             placeholder={attribute.code.toUpperCase()}
             type={"date"}
+            onChange={handleChange}
           />
         );
 
@@ -63,3 +81,4 @@ export const Form = ({ attributes }: FormProps) => {
     </>
   );
 };
+
